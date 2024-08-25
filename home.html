@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda Anak</title>
+    <style>
+    body{
+      background-image: url('asset/img/logo3.jpeg');
+      background-size: cover;
+      height: 100vh;
+            margin: 0;
+            flex-direction: column;
+    }
+    #content {
+    text-align: center;
+}
+
+.header {
+    background-color: #ffcc00;
+    padding: 20px;
+}
+
+.header h1 {
+    color: #fff;
+    font-size: 2.5em;
+}
+
+      .content {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.game-hm {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 10px;
+    width: 150px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+
+img{
+  border-radius: 20px;
+}
+
+.game-hm:hover {
+    transform: scale(1.1);
+}
+
+.icon {
+    width: 80px;
+    height: 80px;
+}
+
+.game-hm h2 {
+    color: #ff66cc;
+    font-size: 1.5em;
+    margin-top: 10px;
+}
+
+/* CSS untuk orientasi landscape */
+@media only screen and (orientation: landscape) {
+    .content {
+        flex-direction: row;
+    }
+
+    .game-hm {
+        width: 200px;
+    }
+
+    .header h1 {
+        font-size: 2em;
+    }
+}
+    </style>
+</head>
+<body>
+    <div id="content">
+        <div class="header">
+            <h1>Selamat Datang di Permainan Anak</h1>
+        </div>
+
+        <div class="content">
+           <div class="game-hm">
+              <a href="vd-abc.html">
+                <img src="asset/img/logo.png" alt="Puzzle" class="icon">
+                 </a>
+                <h2>VIDEO ABC</h2>
+            </div>
+            <div class="game-hm">
+            <a href="vd-abc.html">
+              <img src="asset/img/logo1.jpeg" alt="Puzzle" class="icon">
+            </a>
+            <h2>VIDEO BERHITUNG</h2>
+            </div>
+            <div class="game-hm">
+              <a href="tebak anka.html">
+                <img src="asset/img/logo1.jpeg" alt="Puzzle" class="icon">
+                 </a>
+                <h2>Tebak Angka</h2>
+            </div>
+            <div class="game-hm">
+              <a href="tebak abc.html">
+                <img src="asset/img/logo2.png" alt="Musik" class="icon">
+                </a>
+                <h2>Tebak Abjad</h2>
+            </div>
+            <div class="game-hm">
+              <a href="tambah.html">
+                <img src="asset/img/logo3.jpeg" alt="Mewarnai" class="icon">
+                </a>
+                <h2>Pertambahan</h2>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

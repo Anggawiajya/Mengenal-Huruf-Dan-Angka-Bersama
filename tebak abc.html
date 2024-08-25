@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tebak Huruf dengan Suara</title>
+    <style>
+        body {
+            background-image: url('asset/img/bg-abc.jpeg');
+            font-family: 'Comic Sans MS', sans-serif;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            color: #ff6347;
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        #letter {
+            font-size: 4em;
+            color: #4682b4;
+            margin: 20px;
+        }
+
+        #start-button {
+            background-color: #32cd32;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        #start-button:hover {
+            background-color: #2e8b57;
+        }
+
+        #mic-button {
+            background-color: #ff4500;
+            color: white;
+            border: none;
+            padding: 20px;
+            font-size: 2em;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        #mic-button.active {
+            background-color: #ff6347;
+        }
+
+        #result, #status {
+            font-size: 1.5em;
+            margin: 10px;
+            color: #ff6347;
+        }
+
+        #status {
+            font-weight: bold;
+        }
+        #back-button {
+          background-color: #ff6347;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          font-size: 1.2em;
+          border-radius: 20px;
+          cursor: pointer;
+          box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+          margin-top: 20px;
+        }
+        
+        #back-button:hover {
+          background-color: #e55b45;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tebak Huruf</h1>
+        <p id="letter">?</p>
+        <button id="start-button">Mulai Tebak Huruf</button>
+        <br><br>
+        <button id="mic-button">🎙️</button>
+        <p id="result"></p>
+        <p id="status"></p>
+        <button id="back-button" onclick="window.location.href='home.html'">Kembali</button>
+    </div>
+
+    <audio id="start-sound" src="audio/"></audio>
+    <audio id="correct-sound" src="asset/audio/hore.mp3"></audio>
+    <audio id="wrong-sound" src="asset/audio/salah.mp3"></audio>
+
+    <script>
+        const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+        let currentLetter = '';
+        let recognition;
+
+        const letterElement = document.getElementById('letter');
+        const resultElement = document.getElementById('result');
+        const statusElement = document.getElementById('status');
+        const micButton = document.getElementById('mic-button');
+
+        const startSound = document.getElementById('start-sound');
+        const correctSound = document.getElementById('correct-sound');
+        const wrongSound = document.getElementById('wrong-sound');
+
+        function randomLetter() {
+            const randomIndex = Math.floor(Math.random() * letters.length);
+            currentLetter = letters[randomIndex];
+            letterElement.textContent = currentLetter;
+        }
+
+        function setupRecognition() {
+            recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'id-ID';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            recognition.onresult = function(event) {
+                let speechResult = event.results[0][0].transcript.toUpperCase();
+
+                if (speechResult.length > 1) {
+                    speechResult = speechResult.charAt(0);
+                }
+
+                resultElement.textContent = `Kamu menyebut: ${speechResult}`;
+
+                if (speechResult === currentLetter) {
+                    statusElement.textContent = 'Tebakan benar! Kamu benar!';
+                    statusElement.style.color = "#32cd32";
+                    correctSound.play();
+                } else {
+                    statusElement.textContent = 'Tebakan salah, coba lagi.';
+                    statusElement.style.color = "#ff4500";
+                    wrongSound.play();
+                }
+            };
+
+            recognition.onerror = function(event) {
+                statusElement.textContent = `Error: ${event.error}`;
+            };
+        }
+
+        micButton.addEventListener('mousedown', () => {
+            micButton.classList.add('active');
+            recognition.start();
+        });
+
+        micButton.addEventListener('mouseup', () => {
+            micButton.classList.remove('active');
+            recognition.stop();
+        });
+
+        document.getElementById('start-button').addEventListener('click', () => {
+            randomLetter();
+            setupRecognition();
+            statusElement.textContent = '';
+            resultElement.textContent = '';
+            startSound.play();
+        });
+        //offline mode
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(registration => {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+        });
+    }
+    </script>
+</body>
+</html>

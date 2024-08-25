@@ -1,0 +1,107 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Comic Sans MS', sans-serif;
+    background-color: #f0f8ff;
+}
+
+/* Loading Screen */
+#loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #fff;
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+}
+
+.loading-content {
+    text-align: center;
+}
+
+.logo {
+    width: 150px;
+    animation: fadein 2s ease-in-out;
+}
+
+.copyright {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #777;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Main Content */
+#content {
+    display: none;
+    text-align: center;
+}
+
+.header {
+    background-color: #ffcc00;
+    padding: 20px;
+}
+
+.header h1 {
+    color: #fff;
+    font-size: 2.5em;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.game-option {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 10px;
+    width: 150px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+
+img{
+  border-radius: 20px;
+}
+
+.game-option:hover {
+    transform: scale(1.1);
+}
+
+.icon {
+    width: 80px;
+    height: 80px;
+}
+
+.game-option h2 {
+    color: #ff66cc;
+    font-size: 1.5em;
+    margin-top: 10px;
+}
+
+/* CSS untuk orientasi landscape */
+@media only screen and (orientation: landscape) {
+    .content {
+        flex-direction: row;
+    }
+
+    .game-option {
+        width: 200px;
+    }
+
+    .header h1 {
+        font-size: 2em;
+    }
+}
